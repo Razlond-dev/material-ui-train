@@ -1,9 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select as MuiSelect, } from "@material-ui/core";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select as MuiSelect, } from "@material-ui/core";
 
-export default function Select({ name, label, value, onChange, options }) {
+export default function Select({ name, label, value, error = null, onChange, options }) {
 
   return (
-    <FormControl variant="outlined">
+    <FormControl variant="outlined"
+      {...(error && { error: true })}>
       <InputLabel>{label}</InputLabel>
       <MuiSelect
         name={name}
@@ -18,6 +19,7 @@ export default function Select({ name, label, value, onChange, options }) {
           ))
         }
       </MuiSelect>
+      {error && <FormHelperText>{error}</FormHelperText>}
     </FormControl>
   )
 }

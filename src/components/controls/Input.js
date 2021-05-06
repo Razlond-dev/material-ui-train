@@ -1,6 +1,6 @@
 import { TextField } from "@material-ui/core";
 
-export default function Input({ name, label, value, onChange, type }) {
+export default function Input({ name, label, value, onChange, type, error = null }) {
 
   return (
     <TextField
@@ -10,6 +10,7 @@ export default function Input({ name, label, value, onChange, type }) {
       name={name}
       value={value}
       onChange={onChange}
+      {...(error && { error: true, helperText: error })}
     />
   )
 }
