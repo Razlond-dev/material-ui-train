@@ -1,8 +1,8 @@
 import { createMuiTheme, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import Header from '../components/Header';
-import SideMenu from '../components/SideMenu';
 import './App.css';
 import Employees from '../pages/employees/Employees';
+import SideMenu from './../components/SideMenu';
 
 const theme = createMuiTheme({
   palette: {
