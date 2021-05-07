@@ -30,5 +30,10 @@ export function getAllEmployees() {
   if (localStorage.getItem(KEYS.employees) === null) {
     localStorage.setItem(KEYS.employees, JSON.stringify([]))
   }
-  return JSON.parse(localStorage.getItem(KEYS.employees))
+  let employees = JSON.parse(localStorage.getItem(KEYS.employees))
+  let departments = getDepartmentCollection()
+  return employees.map(item => ({
+    ...item,
+    department: departments[item.departmentId - 1].title
+  }))
 }

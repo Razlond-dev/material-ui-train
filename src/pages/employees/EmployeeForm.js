@@ -74,6 +74,7 @@ const EmployeeForm = () => {
           <Controls.Input
             label="Email"
             name="email"
+            value={values.email}
             error={errors.email}
             onChange={handleInputChange}
           />
