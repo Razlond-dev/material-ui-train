@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   secondary: {
     backgroundColor: theme.palette.secondary.light,
     '& .MuiButton-label': {
-      color: theme.palette.secondary.secondary
+      color: theme.palette.secondary.main
     }
   },
   primary: {
@@ -19,7 +19,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function ActionButton({ color, children, onClick }) {
+type PropsType = {
+  color: "root" | "secondary" | "primary"
+  children: React.ReactNode
+  onClick: () => void
+}
+
+export default function ActionButton({ color, children, onClick }: PropsType) {
   const classes = useStyles()
   return (
     <Button

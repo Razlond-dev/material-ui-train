@@ -1,6 +1,16 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup as MuiRadioGroup } from "@material-ui/core";
+import { SyntheticEvent } from "react";
+import { GenderItemsType } from "../../pages/employees/EmployeeForm";
 
-export default function RadioGroup({ name, label, value, onChange, items }) {
+type PropsType = {
+  name: string
+  label: string
+  value: string
+  onChange: (e: SyntheticEvent) => void
+  items: Array<GenderItemsType>
+}
+
+export default function RadioGroup({ name, label, value, onChange, items }: PropsType) {
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>

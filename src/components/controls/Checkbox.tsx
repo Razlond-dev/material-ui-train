@@ -1,12 +1,17 @@
 import { FormControlLabel, Checkbox as MuiCheckbox, FormControl } from '@material-ui/core'
 import React from 'react'
 
-export default function Checkbox({ name, value, onChange, label }) {
+type PropsType = {
+  name: string
+  value: boolean
+  onChange: (target: { name: string; value: boolean; }) => void
+  label: string
+}
 
-  const convertToDefaultParametr = (name, value) => ({
-    target: {
+export default function Checkbox({ name, value, onChange, label }: PropsType) {
+
+  const convertToDefaultParametr = (name: string, value: boolean) => ({
       name, value
-    }
   })
 
   return (

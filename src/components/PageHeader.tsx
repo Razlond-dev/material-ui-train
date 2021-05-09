@@ -22,7 +22,13 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const PageHeader = ({ icon, title, subtitle }) => {
+type PropsType = {
+  icon: React.ReactNode
+  title: string
+  subtitle: string
+}
+
+const PageHeader = ({ icon, title, subtitle }: PropsType) => {
   const classes = useStyles()
   return (
     <Paper elevation={0} square className={classes.root}>

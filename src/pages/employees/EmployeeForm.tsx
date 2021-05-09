@@ -1,81 +1,96 @@
-import { Grid } from "@material-ui/core"
-import { useEffect } from "react"
-import { Controls } from "../../components/controls/Controls"
-import * as employeeService from "../../services/employeeService"
-import { useForm, Form } from "../../utils/useForm"
+import { Grid } from "@material-ui/core";
+import { SyntheticEvent, useEffect } from "react";
+import * as employeeService from "../../services/employeeService";
+import { useForm, Form, ValidateOneInputType } from "../../utils/useForm";
+import { Controls } from './../../components/controls/Controls';
+
+export type GenderItemsType = {
+  id: string 
+  title: string
+}
 
 const genderItems = [
-  { id: 'male', title: 'Male' },
-  { id: 'female', title: 'Female' },
-  { id: 'other', title: 'Other' },
-]
+  { id: "male", title: "Male" },
+  { id: "female", title: "Female" },
+  { id: "other", title: "Other" },
+];
 
 const initialFieldValues = {
   id: 0,
-  fullName: '',
-  email: '',
-  mobile: '',
-  city: '',
-  gender: 'male',
-  departmentId: '',
+  fullName: "",
+  email: "",
+  mobile: "",
+  city: "",
+  gender: "male",
+  departmentId: "",
   hireDate: new Date(),
   isPermanent: false,
-}
+};
 
-const EmployeeForm = ({ addOrEdit, recordForEdit }) => {
+type PropsType = {
+  addOrEdit: (
+    employee: employeeService.EmployeeType,
+    resetForm: () => void
+  ) => void;
+  recordForEdit: employeeService.EmployeeType | null;
+};
 
-  const validate = (fieldValues = values) => {
-    let temp = { ...errors }
-    if ('fullName' in fieldValues) {
-      temp.fullName = fieldValues.fullName ? "" : "This field is required"
+const EmployeeForm = ({ addOrEdit, recordForEdit }: PropsType) => {
+  const validate = (fieldValues: ValidateOneInputType | employeeService.EmployeeType) => {
+    let temp = { ...errors };
+    if ("fullName" in fieldValues) {
+      temp.fullName = fieldValues.fullName ? "" : "This field is required";
     }
-    if ('mobile' in fieldValues) {
-      temp.mobile = fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required"
+    if ("mobile" in fieldValues) {
+      temp.mobile =
+        fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required";
     }
-    if ('email' in fieldValues) {
-      temp.email = (/^\S+@\S+\.\S+$/).test(values.email) ? "" : "Email is not valid"
+    if ("email" in fieldValues) {
+      temp.email = /^\S+@\S+\.\S+$/.test(values.email)
+        ? ""
+        : "Email is not valid";
     }
-    if ('departmentId' in fieldValues) {
-      temp.departmentId = fieldValues.departmentId.length !== 0 ? "" : "This field is required"
+    if (fieldValues.departmentId) {
+      temp.departmentId =
+        fieldValues.departmentId.length !== 0 ? "" : "This field is required";
     }
-    setErrors({ ...temp })
+    setErrors({ ...temp });
     // eslint-disable-next-line eqeqeq
-    if (fieldValues == values) return Object.values(temp).every(x => x == '')
-  }
+    if (fieldValues == values) return Object.values(temp).every((x) => x == "");
+  };
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
 
-    if (validate()) {
-      addOrEdit(values, resetForm)
+    if (validate(values)) {
+      addOrEdit(values, resetForm);
     }
-  }
+  };
 
   const {
     values,
     setValues,
     handleInputChange,
+    handleSelectChange,
+    handleCheckboxChange,
     errors,
     setErrors,
-    resetForm
-  } = useForm(initialFieldValues, true, validate)
+    resetForm,
+  } = useForm(initialFieldValues, true, validate);
 
   useEffect(() => {
-
     if (recordForEdit !== null) {
       setValues({
-        ...recordForEdit
-      })
+        ...recordForEdit,
+      });
     }
-
-  }, [setValues, recordForEdit])
+  }, [setValues, recordForEdit]);
 
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container>
         <Grid item xs={6}>
           <Controls.Input
-            variant="outlined"
             label="Full Name"
             value={values.fullName}
             name="fullName"
@@ -115,7 +130,7 @@ const EmployeeForm = ({ addOrEdit, recordForEdit }) => {
             name="departmentId"
             label="Department"
             value={values.departmentId}
-            onChange={handleInputChange}
+            onChange={handleSelectChange}
             options={employeeService.getDepartmentCollection()}
             error={errors.departmentId}
           />
@@ -123,19 +138,16 @@ const EmployeeForm = ({ addOrEdit, recordForEdit }) => {
             name="hireDate"
             label="Hire Date"
             value={values.hireDate}
-            onChange={handleInputChange}
+            onChange={handleCheckboxChange}
           />
           <Controls.Checkbox
             name="isPermanent"
             label="Permanent Employee"
             value={values.isPermanent}
-            onChange={handleInputChange}
+            onChange={handleCheckboxChange}
           />
           <div>
-            <Controls.Button
-              type="submit"
-              text="Submit"
-            />
+            <Controls.Button type="submit" text="Submit" />
             <Controls.Button
               color="secondary"
               text="Reset"
@@ -145,7 +157,7 @@ const EmployeeForm = ({ addOrEdit, recordForEdit }) => {
         </Grid>
       </Grid>
     </Form>
-  )
-}
+  );
+};
 
-export default EmployeeForm
+export default EmployeeForm;

@@ -1,13 +1,20 @@
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date'
 import React from 'react'
 
-export default function DatePicker({name, value, label, onChange}) {
+type PropsType = {
+  name: string
+  value: Date
+  onChange: (target: { name: string; value: MaterialUiPickersDate; }) => void
+  label: string
+}
+
+
+export default function DatePicker({name, value, label, onChange}: PropsType) {
  
-  const convertToDefaultParametr = (name, value) => ({
-    target: {
+  const convertToDefaultParametr = (name: string, value: MaterialUiPickersDate) => ({
       name, value
-    }
   })
 
   return (

@@ -1,5 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton, makeStyles, Typography } from "@material-ui/core";
 import { NotListedLocation } from "@material-ui/icons";
+import { ConfirmDialogType } from "../pages/employees/Employees";
 import { Controls } from "./controls/Controls";
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +25,12 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function ConfirmDialog({ confirmDialog, setConfirmDialog }) {
+type PropsType = {
+  confirmDialog: ConfirmDialogType
+  setConfirmDialog: (x: ConfirmDialogType) => void
+}
+
+export default function ConfirmDialog({ confirmDialog, setConfirmDialog }: PropsType) {
 
   const classes = useStyles()
 
@@ -39,7 +45,7 @@ export default function ConfirmDialog({ confirmDialog, setConfirmDialog }) {
         </IconButton>
       </DialogTitle>
       <DialogContent
-        className={classes.DialogContent}
+        className={classes.dialogContent}
       >
         <Typography variant="h6">
           {confirmDialog.title}
@@ -48,7 +54,7 @@ export default function ConfirmDialog({ confirmDialog, setConfirmDialog }) {
           {confirmDialog.subtitle}
         </Typography>
       </DialogContent>
-      <DialogActions className={classes.DialogActions}>
+      <DialogActions className={classes.dialogActions}>
         <Controls.Button
           text="No"
           color="default"

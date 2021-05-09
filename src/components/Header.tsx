@@ -20,12 +20,6 @@ const useStyles = makeStyles(theme => ({
   searchIcon: {
     marginRight: theme.spacing(1)
   }
-  // btnRoot: {
-  //   backgroundColor: 'green',
-  // },
-  // btnLabel: {
-  //   backgroundColor: 'red',
-  // }
 }))
 
 const Header = () => {
@@ -44,12 +38,12 @@ const Header = () => {
           <Grid item sm>
           </Grid>
           <Grid item>
-            <IconButton classes={{ root: classes.btnRoot, label: classes.btnLabel }}>
+            <IconButton>
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon fontSize="small" />
               </Badge>
             </IconButton>
-            <IconButton classes={{ root: classes.btnRoot, label: classes.btnLabel }}>
+            <IconButton>
               <Badge badgeContent={3} color="primary">
                 <ChatBubbleIcon fontSize="small" />
               </Badge>

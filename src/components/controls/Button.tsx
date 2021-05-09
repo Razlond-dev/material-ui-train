@@ -1,4 +1,4 @@
-import { Button as MuiButton, makeStyles } from "@material-ui/core";
+import { Button as MuiButton, ButtonProps, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -6,7 +6,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Button({ variant = "contained", color = "primary", size = "large", text, onClick, ...other }) {
+type PropsType = ButtonProps & {
+  onClick?: () => void
+  text: string
+}
+export default function Button({ variant = "contained", color = "primary", size = "large", text, onClick, ...other }: PropsType) {
   const classes = useStyles()
   return (
     <MuiButton

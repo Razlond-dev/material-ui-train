@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const SideMenu = () => {
   const classes = useStyles();
 
-  return <div className={classes.sideMenu}>side menu</div>;
+  return <div className={classes.sideMenu}>Side menu</div>;
 };
 
 export default SideMenu;
